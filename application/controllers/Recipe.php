@@ -23,22 +23,28 @@ class Recipe extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->user_id = _ppm_decode($this->input->get_request_header('ID', TRUE));
+        $this->user_id = _decode($this->input->get_request_header('ID', TRUE));
+        $authApply = true;
 
-        required_field($this->user_id, 'user_id');
-        if ($this->user_id == 0) {
-            $response['success'] = false;
-            $response['error_type'] = 0;
-            $response['message'] = 'Invalid request.';
-            echo json_encode($response);
-            exit;
+        if ($this->uri->segment(2) == 'getRecipes') {
+            $authApply = false;
         }
+        if ($authApply == true) {
+            required_field($this->user_id, 'user_id');
+            if ($this->user_id == 0) {
+                $response['success'] = false;
+                $response['error_type'] = 0;
+                $response['message'] = 'Invalid request.';
+                echo json_encode($response);
+                exit;
+            }
 
-        $response = $this->ValidationModel->validateToken();
-        /* validate user request header. */
-        if ($response['success'] === FALSE) {
-            echo json_encode($response);
-            exit;
+            $response = $this->ValidationModel->validateToken();
+            /* validate user request header. */
+            if ($response['success'] === FALSE) {
+                echo json_encode($response);
+                exit;
+            }
         }
     }
 
@@ -51,9 +57,9 @@ class Recipe extends CI_Controller {
         $processFlag = TRUE;
 
         if ($processFlag) {
-            $where = "email='$email'";
+//            $where = "email='$email'";
 //Get User Data 
-            $recipeData = $this->CommonModel->getRecords("recipe", '1', "*");
+            $recipeData = $this->CommonModel->getRecords("recipe", '', "recipe_id,name,image,category","","created_date","desc");
 
             if (!empty($recipeData)) {
                 $response['success'] = TRUE;
@@ -80,7 +86,7 @@ class Recipe extends CI_Controller {
         if ($processFlag) {
             $where = "recipe_id=$recipeId";
 //Get User Data 
-            $recipeData = $this->CommonModel->getRows("recipe", $where, "*");
+            $recipeData = $this->CommonModel->getRow("recipe", $where, "*");
 
             if (!empty($recipeData)) {
                 $response['success'] = TRUE;
