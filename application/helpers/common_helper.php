@@ -98,3 +98,27 @@ function social_token($token, $email) {
     }
     return $response;
 }
+
+function _safe_b64encode($string) {
+    $data = base64_encode($string);
+    $data = str_replace(array('+', '/', '='), array('-', '_', ''), $data);
+    return $data;
+}
+
+function _safe_b64decode($string) {
+    $data = str_replace(array('-', '_'), array('+', '/'), $string);
+    $mod4 = strlen($data) % 4;
+    if ($mod4) {
+        $data .= substr('====', $mod4);
+    }
+    return base64_decode($data);
+}
+
+function required_field($field, $fieldName) {
+    if ($field == '') {
+        $message = "missing field " . $fieldName . ".";
+        echo json_encode(array("success" => FALSE, "error_type" => 1, "message" => $message));
+        exit;
+    }
+    return false;
+}

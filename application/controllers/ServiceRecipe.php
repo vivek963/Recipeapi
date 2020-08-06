@@ -38,9 +38,9 @@ class ServiceRecipe extends CI_Controller {
         $processFlag = TRUE;
 
         if ($processFlag) {
-            $where = "email='$email'";
+//            $where = "email='$email'";
 //Get User Data 
-            $recipeData = $this->CommonModel->getRecords("recipe", '1', "*");
+            $recipeData = $this->CommonModel->getRecords("recipe", '', "*");
 
             if (!empty($recipeData)) {
                 $response['success'] = TRUE;
@@ -67,7 +67,7 @@ class ServiceRecipe extends CI_Controller {
         if ($processFlag) {
             $where = "recipe_id=$recipeId";
 //Get User Data 
-            $recipeData = $this->CommonModel->getRows("recipe", $where, "*");
+            $recipeData = $this->CommonModel->getRow("recipe", $where, "*");
 
             if (!empty($recipeData)) {
                 $response['success'] = TRUE;

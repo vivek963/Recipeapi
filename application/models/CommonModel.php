@@ -1,6 +1,6 @@
 <?php
 
-/* MIHIR */
+
 
 class CommonModel extends CI_Model {
 

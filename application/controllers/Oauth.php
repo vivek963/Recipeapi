@@ -74,6 +74,7 @@ class Oauth extends CI_Controller {
                     'email' => $email,
                     'password' => $password,
                     'name' => $name,
+                    'email_verified' => 1,
                     'created_date' => date('Y-m-d H:i:s'),
                 );
                 $userId = $this->CommonModel->add('users', $register);
@@ -381,6 +382,21 @@ class Oauth extends CI_Controller {
             $response['auth_key'] = 'reciperestapi';
         }
         return $response;
+    }
+
+    function addServiceKey() {
+        $data = [];
+//TOKEN
+        $data['api_key'] = _guid();
+        $data['updated_date'] = $data['created_date'] = date('Y-m-d H:i:s');
+        $data['expired_date'] = date('Y-m-d H:i:s', strtotime('+720 hours')); //default token time
+
+        $this->CommonModel->add('service_token', $data);
+
+        $response["success"] = TRUE;
+        $response["message"] = 'SUCCESS';
+
+        echo json_encode($response);
     }
 
 }

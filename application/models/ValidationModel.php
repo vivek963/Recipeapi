@@ -1,6 +1,6 @@
 <?php
 
-/* Shankar Panaskar */
+
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class ValidationModel extends CI_Model {
@@ -30,7 +30,9 @@ class ValidationModel extends CI_Model {
             $this->db->from('users');
             $this->db->where('user_id', $user_id);
             $get_user = $this->db->get()->row();
-            if (count($get_user) != 0) {
+         //print_r($get_user);
+            //exit;
+            if (!empty($get_user)) {
                 if ($get_user->email_verified == 0) {
                     $response['message'] = "Your Account is Deleted / Blocked,Please Contact PlayerzPot Support";
                     $response['error_code'] = 3;
@@ -42,8 +44,8 @@ class ValidationModel extends CI_Model {
                     $this->db->where('token', $token);
 
                     $tokenCheck = $this->db->get()->row();
-                    if (count($tokenCheck) == 0) {
-                        $response['message'] = 'Invalid request';
+                    if (empty($tokenCheck)) {
+                        $response['message'] = 'Unauthorized.';
                         $response['error_code'] = 2;
                         $response['error_type'] = 2;
                     } else {
@@ -84,8 +86,8 @@ class ValidationModel extends CI_Model {
             $this->db->where('api_key', $key);
 
             $tokenCheck = $this->db->get()->row();
-            if (count($tokenCheck) == 0) {
-                $response['message'] = 'Invalid request';
+            if (empty($tokenCheck)) {
+                $response['message'] = 'Unauthorized.';
                 $response['error_code'] = 2;
                 $response['error_type'] = 2;
             } else {
