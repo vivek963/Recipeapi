@@ -123,7 +123,7 @@ class Oauth extends CI_Controller {
                    "to" => [$email => ''],
                    "cc" => [],
                    "bcc" => [],
-                   "from" => array("vivek.kamdar3@gmail.com", "Recipe"),
+                   "from" => array("aakashmkaria@gmail.com", "Recipe"),
                    "replyto" => array("support@recipe.com", "Recipe Support Team"),
                    "subject" => $subject,
                    "text" => "",
