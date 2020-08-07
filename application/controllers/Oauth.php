@@ -115,23 +115,23 @@ class Oauth extends CI_Controller {
                 $this->CommonModel->edit('users', $update_data, $where);
 
 
-//                $mailin = new Mailin('https://api.sendinblue.com/v2.0', 'sH5YnSUc3dDKIvPA');
-//                $subject = "Reset Password OTP";
-//                $message = "Hi $email,"
-//                        . "Your OTP for resetting your password is $code. Don't share this OTP with anyone.";
-//                $mail_data = array(
-//                    "to" => [$email => ''],
-//                    "cc" => [],
-//                    "bcc" => [],
-//                    "from" => array("support@recipe.com", "Recipe"),
-//                    "replyto" => array("support@recipe.com", "Recipe Support Team"),
-//                    "subject" => $subject,
-//                    "text" => "",
-//                    "html" => $message,
-//                    "attachment" => array(),
-//                    "headers" => array("Content-Type" => "text/html; charset=iso-8859-1", "X-param1" => "value1", "X-param2" => "value2", "X-Mailin-custom" => "my custom value", "X-Mailin-IP" => "213.32.159.50", "X-Mailin-Tag" => "My tag")
-//                );
-//                $mailin->send_email($mail_data);
+               $mailin = new Mailin('https://api.sendinblue.com/v2.0', 'IPMmHnOTxjahF63Q');
+                $subject = "Reset Password OTP";
+                $message = "Hi $email,"
+                       . "Your OTP for resetting your password is $code. Don't share this OTP with anyone.";
+               $mail_data = array(
+                   "to" => [$email => ''],
+                   "cc" => [],
+                   "bcc" => [],
+                   "from" => array("vivek.kamdar3@gmail.com", "Recipe"),
+                   "replyto" => array("support@recipe.com", "Recipe Support Team"),
+                   "subject" => $subject,
+                   "text" => "",
+                   "html" => $message,
+                   "attachment" => array(),
+                   "headers" => array("Content-Type" => "text/html; charset=iso-8859-1", "X-param1" => "value1", "X-param2" => "value2", "X-Mailin-custom" => "my custom value", "X-Mailin-IP" => "213.32.159.50", "X-Mailin-Tag" => "My tag")
+               );
+               $mailin->send_email($mail_data);
 
                 $response["success"] = TRUE;
                 $response["userId"] = _encode($userId);
@@ -396,7 +396,7 @@ class Oauth extends CI_Controller {
 //TOKEN
         $data['api_key'] = _guid();
         $data['updated_date'] = $data['created_date'] = date('Y-m-d H:i:s');
-        $data['expired_date'] = date('Y-m-d H:i:s', strtotime('+720 hours')); //default token time
+        $data['expired_date'] = date('Y-m-d H:i:s', strtotime('+1440 hours')); //default token time
 
         $this->CommonModel->add('service_token', $data);
 
