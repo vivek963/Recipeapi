@@ -59,11 +59,14 @@ class Recipe extends CI_Controller {
         if ($processFlag) {
 //            $where = "email='$email'";
 //Get User Data 
-            $recipeData = $this->CommonModel->getRecords("recipe", '', "recipe_id,name,image,category","","created_date","desc");
-
+            $recipeData = $this->CommonModel->getRecords("recipe", '', "recipe_id,name,image,category", "", "created_date", "desc");
             if (!empty($recipeData)) {
                 $response['success'] = TRUE;
                 $response['message'] = "SUCCESS";
+                for ($i = 0; $i < count($recipeData); $i++) {
+                    $image_name = strtolower(str_replace(" ", "-", $recipeData[$i]['name']));
+                    $recipeData[$i]['image'] = base_url() . "assets/images/" . $image_name . ".jpg";
+                }
                 $response["recipeData"] = $recipeData;
             } else {
                 $response['error_type'] = 1;
@@ -87,6 +90,9 @@ class Recipe extends CI_Controller {
             $where = "recipe_id=$recipeId";
 //Get User Data 
             $recipeData = $this->CommonModel->getRow("recipe", $where, "*");
+
+            $image_name = strtolower(str_replace(" ", "-", $recipeData['name']));
+            $recipeData['image'] = base_url() . "assets/images/" . $image_name . ".jpg";
 
             if (!empty($recipeData)) {
                 $response['success'] = TRUE;
