@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   | a PHP script and you can easily do that on your own.
   |
  */
-$config['base_url'] = 'http://localhost/recipeapi/';
+$config['base_url'] = 'http://recipeapi-env.eba-q2xw3dsa.us-east-1.elasticbeanstalk.com/';
 
 /*
   |--------------------------------------------------------------------------
