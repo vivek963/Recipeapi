@@ -40,8 +40,8 @@ class ServiceRecipe extends CI_Controller {
         if ($processFlag) {
 //            $where = "email='$email'";
 //Get User Data 
-$recipeData = $this->CommonModel->getRecords("recipe", '', "recipe_id,name,image,category", "", "created_date", "desc");
-           
+            $recipeData = $this->CommonModel->getRecords("recipe", '', "recipe_id,name,image,category", "", "created_date", "desc");
+
             if (!empty($recipeData)) {
                 $response['success'] = TRUE;
                 $response['message'] = "SUCCESS";
@@ -54,12 +54,9 @@ $recipeData = $this->CommonModel->getRecords("recipe", '', "recipe_id,name,image
                 $response['error_type'] = 1;
                 $response['message'] = "No Recipes Found";
             }
-
         }
         echo json_encode($response);
     }
-
-
 
     public function getRecipeData() {
         $response = array();
@@ -70,7 +67,11 @@ $recipeData = $this->CommonModel->getRecords("recipe", '', "recipe_id,name,image
         $recipeId = trim($this->input->post('recipeId')); /* Recipe ID */
 
         $processFlag = TRUE;
-
+        if ($recipeId == '') {
+            $response['error_type'] = 1;
+            $response['message'] = "Please Enter Recipe ID";
+            $processFlag = FALSE;
+        }
         if ($processFlag) {
             $where = "recipe_id=$recipeId";
 //Get User Data 
