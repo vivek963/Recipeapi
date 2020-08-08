@@ -9,7 +9,7 @@ class Mailin
     public $base_url;
     public $timeout;
     public $curl_opts = array();
-    public function __construct($base_url='https://api.sendinblue.com/v2.0', $api_key='sH5YnSUc3dDKIvPA', $timeout='')
+    public function __construct($base_url='https://api.sendinblue.com/v2.0', $api_key='IPMmHnOTxjahF63Q', $timeout='')
     {
         if (!function_exists('curl_init')) {
             throw new \Exception('Mailin requires CURL module');
