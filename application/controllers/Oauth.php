@@ -117,7 +117,7 @@ class Oauth extends CI_Controller {
 
                $mailin = new Mailin('https://api.sendinblue.com/v2.0', 'IPMmHnOTxjahF63Q');
                 $subject = "Reset Password OTP";
-                $message = "Hi $name,"
+                $message = "Hi $email,"
                        . "Your OTP for resetting your password is $code. Don't share this OTP with anyone.";
                $mail_data = array(
                    "to" => [$email => ''],
