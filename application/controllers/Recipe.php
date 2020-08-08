@@ -59,7 +59,7 @@ class Recipe extends CI_Controller {
         if ($processFlag) {
 //            $where = "email='$email'";
 //Get User Data 
-            $recipeData = $this->CommonModel->getRecords("recipe", '', "recipe_id,name,image,category", "", "created_date", "desc");
+            $recipeData = $this->CommonModel->getRecords("recipe", '', "*", "", "created_date", "desc");
             if (!empty($recipeData)) {
                 $response['success'] = TRUE;
                 $response['message'] = "SUCCESS";
