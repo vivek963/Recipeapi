@@ -55,6 +55,7 @@ class ServiceRecipe extends CI_Controller {
                 $response['message'] = "No Recipes Found";
             }
         }
+        header('Content-Type: application/json');
         echo json_encode($response);
     }
 
