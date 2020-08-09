@@ -22,6 +22,7 @@ class ServiceRecipe extends CI_Controller {
     function __construct() {
         parent::__construct();
         $response = $this->ValidationModel->validateKey();
+        header('Content-Type: application/json');
         /* validate user request header. */
         if ($response['success'] === FALSE) {
             echo json_encode($response);
@@ -55,7 +56,6 @@ class ServiceRecipe extends CI_Controller {
                 $response['message'] = "No Recipes Found";
             }
         }
-        header('Content-Type: application/json');
         echo json_encode($response);
     }
 
