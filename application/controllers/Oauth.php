@@ -104,9 +104,10 @@ class Oauth extends CI_Controller {
         if ($processFlag) {
             $where = "email='$email' AND email_verified=1";
 //Get User Data 
-            $userData = $this->CommonModel->getRow("users", $where, "user_id");
+            $userData = $this->CommonModel->getRow("users", $where, "user_id,name");
             if (!empty($userData)) {
                 $userId = $userData['user_id'];
+                $name = $userData['name'];
                 $code = generateRandom();
 
                 $update_data["otp"] = $code;
@@ -115,23 +116,23 @@ class Oauth extends CI_Controller {
                 $this->CommonModel->edit('users', $update_data, $where);
 
 
-               $mailin = new Mailin('https://api.sendinblue.com/v2.0', 'IPMmHnOTxjahF63Q');
+                $mailin = new Mailin('https://api.sendinblue.com/v2.0', 'IPMmHnOTxjahF63Q');
                 $subject = "Reset Password OTP";
-                $message = "Hi $email,"
-                       . "Your OTP for resetting your password is $code. Don't share this OTP with anyone.";
-               $mail_data = array(
-                   "to" => [$email => ''],
-                   "cc" => [],
-                   "bcc" => [],
-                   "from" => array("recipesbookss@gmail.com", "Recipe"),
-                   "replyto" => array("recipesbookss@gmail.com", "Recipe Support Team"),
-                   "subject" => $subject,
-                   "text" => "",
-                   "html" => $message,
-                   "attachment" => array(),
-                   "headers" => array("Content-Type" => "text/html; charset=iso-8859-1", "X-param1" => "value1", "X-param2" => "value2", "X-Mailin-custom" => "my custom value", "X-Mailin-IP" => "213.32.159.50", "X-Mailin-Tag" => "My tag")
-               );
-               $mailin->send_email($mail_data);
+                $message = "<p><strong><span style='font-size: 22px;'>Hi $name,</span></strong></p>
+<p><span style='font-size: 18px;'>Your OTP for resetting your password is $code. Don&#39;t share this OTP with anyone.</span></p>";
+                $mail_data = array(
+                    "to" => [$email => ''],
+                    "cc" => [],
+                    "bcc" => [],
+                    "from" => array("recipesbookss@gmail.com", "Recipe"),
+                    "replyto" => array("recipesbookss@gmail.com", "Recipe Support Team"),
+                    "subject" => $subject,
+                    "text" => "",
+                    "html" => $message,
+                    "attachment" => array(),
+                    "headers" => array("Content-Type" => "text/html; charset=iso-8859-1", "X-param1" => "value1", "X-param2" => "value2", "X-Mailin-custom" => "my custom value", "X-Mailin-IP" => "213.32.159.50", "X-Mailin-Tag" => "My tag")
+                );
+                $mailin->send_email($mail_data);
 
                 $response["success"] = TRUE;
                 $response["userId"] = _encode($userId);
